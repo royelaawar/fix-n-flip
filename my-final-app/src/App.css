@@ -1,0 +1,153 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.flexPanel {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: hidden;
+
+}
+
+.panelMoves {
+  min-width: 300px;
+  background-color: red;
+  height: 100%;
+  transition: min-width 1s;
+  min-width: 0px;
+}
+
+
+.listingList {
+  /* width: fit-content; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100vw;
+  
+
+  grid-template-columns: 25% 25% 25% 25%;
+  display: grid;
+  transition: grid 1s, gap 1s, max-width 1s;
+  
+
+}
+
+.listingList[click-active="T"] {
+  max-width: 800px;
+  gap: 0;
+  margin: auto;
+  .listing {
+    /* animate these too */
+      margin: 0px;
+      padding: 0px;
+      box-shadow: none !important;
+      border: none;
+
+  }
+
+}
+
+
+.listingList .listing {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  flex-basis: 22%;
+  margin: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* Style for images in the listing */
+.listing img {
+  width: 100%; /* Adjust the width as needed */
+  
+  height: auto; /* Keeps the aspect ratio */
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.listing {
+  font-size: 14px; /* Adjust the size as needed */
+}
+
+.listing h2 {
+  font-size: 18px; /* Adjust the size for heading if needed */
+}
+
+.listing p {
+  font-size: 14px; /* Adjust for paragraph text */
+}
+
+.belowAverage {
+  box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.6); /* Stronger green glow */
+}
+
+.aboveAverage {
+  box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.6); /* Stronger red glow */
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust color and opacity as needed */
+  border: 1px solid #ccc; /* Simple border, customize as needed */
+  padding: 10px;
+  width: 50%;
+  margin: 0 auto; /* Centers the nav in the page */
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: black; /* or any color you prefer */
+}
+
+nav a.active {
+  font-weight: bold;
+  color: blue; /* or any color to indicate active link */
+}
