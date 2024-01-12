@@ -133,6 +133,8 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
         `${ x === 0 ? "100%" : "0" } ${ x === 1 ? "100%" : "0" } ${ x === 2 ? "100%" : "0" } ${ x === 3 ? "100%" : "0" }`;
       style.gridTemplateRows = 
         `${ y === 0 ? "100%" : "0" } ${ y === 1 ? "100%" : "0" } ${ y === 2 ? "100%" : "0" } ${ y === 3 ? "100%" : "0" }`;
+    } else {
+      style.gridTemplateRows = "255px 255px 255px 255px";
     };
 
     for (let i = 0; i < rowLen; i++) {
@@ -141,7 +143,6 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
         else if( clickedIndex !== null ) rowStr += "0 ";
         else rowStr += "300px";
     };
-    style.gridTemplateRows = rowStr;
     
     const EscapeButton = <button onClick={ e => { e.stopPropagation( ); setClickedIndex(null)}} id="Esc">
       X

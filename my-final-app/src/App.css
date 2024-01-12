@@ -63,6 +63,7 @@
   max-width: 100vw;
   gap: 15px;
   grid-template-columns: calc( 25% - var(--padding )) calc( 25% - var(--padding )) calc( 25% - var(--padding )) calc( 25% - var(--padding ));
+  grid-template-rows: repeat(4, 255px);
   display: grid;
   transition: grid 1s, gap 1s, max-width 1s, padding 1s;
   padding: var(--padding);
