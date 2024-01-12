@@ -30,7 +30,7 @@ function Signup({attemptSignup}) {
       placeholder='username'
       />
 
-      <input type="text"
+      <input type="password"
       onChange={handleChangePassword}
       value={password}
       placeholder='password'

@@ -7,41 +7,161 @@ from werkzeug.security import generate_password_hash
 
 listing_list = [
     {
-        "street_address": "123 Example St",
-        "city": "Example City",
-        "state": "EX",
-        "zip_code": 12345,
-        "price": 250000,
+        "street_address": "1 Merlin Dr",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 550000,
         "lot_size": 5000,
-        "square_footage": 1500,
+        "square_footage": 1800,
         
     },
     {
-        "street_address": "456 Main St",
-        "city": "Sunnyvale",
-        "state": "CA",
-        "zip_code": 94086,
+        "street_address": "5 Conover Lane",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 490000,
+        "lot_size": 6000,
+        "square_footage": 1578,
+       
+    },
+    {
+        "street_address": "21 Hillside Road",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 450000,
+        "lot_size": 5500,
+        "square_footage": 1380,
+        
+    },
+    {
+        "street_address": "352 Main St",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 350000,
+        "lot_size": 4800,
+        "square_footage": 1600,
+        
+    },
+    {
+        "street_address": "12 Barrister Lane",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 250000,
+        "lot_size": 5000,
+        "square_footage": 1900,
+        
+    },
+    {
+        "street_address": "2 Annapolis Drive",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 290000,
+        "lot_size": 6000,
+        "square_footage": 1800,
+       
+    },
+    {
+        "street_address": "109 Gordons Corner Rd",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 950000,
+        "lot_size": 7000,
+        "square_footage": 3000,
+        
+    },
+    {
+        "street_address": "380 St Andrews Place",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 275000,
+        "lot_size": 4800,
+        "square_footage": 1600,
+        
+    },
+    {
+        "street_address": "300 Gold Court",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 800000,
+        "lot_size": 5000,
+        "square_footage": 2800,
+        
+    },
+    {
+        "street_address": "8 Mcintosh Lane",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
         "price": 350000,
         "lot_size": 6000,
         "square_footage": 1800,
        
     },
     {
-        "street_address": "789 Oak Rd",
-        "city": "Maple Town",
-        "state": "OR",
-        "zip_code": 97035,
+        "street_address": "52 Lone Star Lane",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
         "price": 420000,
         "lot_size": 5500,
         "square_footage": 2000,
         
     },
     {
-        "street_address": "101 Pine Ln",
-        "city": "Lakeview",
-        "state": "MI",
-        "zip_code": 48850,
-        "price": 275000,
+        "street_address": "7 Valley Road",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 750000,
+        "lot_size": 4800,
+        "square_footage": 1600,
+        
+    },
+     {
+        "street_address": "201 Jerry Court",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 900000,
+        "lot_size": 5000,
+        "square_footage": 3500,
+        
+    },
+    {
+        "street_address": "16 Regency Way",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 850000,
+        "lot_size": 6000,
+        "square_footage": 1800,
+       
+    },
+    {
+        "street_address": "115 Wintergreen Drive",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 340000,
+        "lot_size": 5500,
+        "square_footage": 1900,
+        
+    },
+    {
+        "street_address": "1 Woodford Lane",
+        "city": "Manalapan",
+        "state": "NJ",
+        "zip_code": 17726,
+        "price": 300000,
         "lot_size": 4800,
         "square_footage": 1600,
         
@@ -63,13 +183,17 @@ user_list = [
 
 image_list = [
     {
-        "image_url": "https://example.com/image1.jpg",
+        "image_url": "https://royimagestorage.s3.amazonaws.com/Home+1/image+1.webp", 
         "listing_id": 1  # Assuming this corresponds to a listing's ID
     },
     {
-        "image_url": "https://example.com/image2.jpg",
-        "listing_id": 2  # Adjust according to actual listing ID
-    }
+        "image_url": "https://royimagestorage.s3.amazonaws.com/img_01.png",
+        "listing_id": 1  # Adjust according to actual listing ID
+    },
+    {
+        "image_url": "https://royimagestorage.s3.amazonaws.com/img_01.png", 
+        "listing_id": 2  # Assuming this corresponds to a listing's ID
+    },
     # Add more images as needed
 ]
 

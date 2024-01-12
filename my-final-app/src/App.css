@@ -151,3 +151,77 @@ nav a.active {
   font-weight: bold;
   color: blue; /* or any color to indicate active link */
 }
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 300px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-form h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.user-form input[type="text"], .user-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.user-form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.user-form input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* CSS for the container of the favorites list */
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items vertically in the container */
+}
+
+/* CSS for each favorite item */
+.favorite-item {
+  display: flex;
+  align-items: center; /* Vertically align items in the middle */
+  justify-content: center; /* Horizontally center items */
+  margin-bottom: 20px; /* Space between favorite items */
+  width: 80%; /* Adjust width as needed */
+}
+
+.favorite-image {
+  width: 500px; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Optional: rounded corners */
+  margin-right: 15px; /* Space between image and info */
+}
+
+.favorite-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to the start (left) */
+}
+
+.button-highlight {
+  background-color: #4CAF50; /* Green background */
+  color: white;
+}
+

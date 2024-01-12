@@ -35,8 +35,7 @@ def create_user():
     try:
         data = request.json
         new_user = User(
-            name=data.get("username"), 
-            user_name=data.get("username"), 
+            user_name=data.get("username")
             )
         new_user.password_hash = data['password']
         db.session.add(new_user)
@@ -95,6 +94,17 @@ def get_user_by_id(id):
         return {"error":f"couldn't find user with id {id}"}, 404
     return make_response(user.to_dict(rules = user_rules), 201)
 
+@app.patch(URL_PREFIX + '/users/<int:user_id>/budget')
+def update_budget(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return {"error": "User not found"}, 404
+
+    data = request.json
+    user.budget = data.get("budget")
+
+    db.session.commit()
+    return make_response(user.to_dict(rules=user_rules), 200)
 
 
     
@@ -149,9 +159,12 @@ def post_listing():
         return {"error": f"Could not create listing; {str(e)}"}, 400
 
 
+@app.get(URL_PREFIX + '/favorites')
+def get_favorites():
+    favorites = [f.to_dict(rules = favorites_rules) for f in Favorite.query.all()]
+    return make_response(favorites, 200)
 
-
-@app.post('/favorites')
+@app.post(URL_PREFIX + '/favorites')
 def create_favorite():
     data = request.json
     try:
@@ -164,9 +177,6 @@ def create_favorite():
         return new_favorite.to_dict(), 201
     except Exception as e:
         return{"error": f"{e}"}
-
-if __name__ == '__main__':
-    app.run(port=5555, debug=True)
 
 @app.get(URL_PREFIX + '/userProfile/favorites')
 def get_user_favorites():
@@ -229,3 +239,5 @@ def post_image():
         
         return {"error": f"Could not upload image; {str(e)}"}, 400
 
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)

@@ -1,38 +1,10 @@
-// function ListingsComponent({ listings, onFavorite }) {
-//     return (
-//         <div>
-//             <h1>Listings</h1>
-//             <div className="listingList">
-//                 {listings.map(listing => (
-//                     <div key={listing.id} className="listing">
-//                         {/* Images are placed here, above the other information */}
-//                         {listing.images && listing.images.map(image => (
-//                             <img key={image.id} src={image.image_url} alt="Listing" />
-//                         ))}
-
-//                         <h2>{listing.street_address}</h2>
-//                         <p><strong>City:</strong> {listing.city}</p>
-//                         <p><strong>Price:</strong> ${listing.price}</p>
-//                         <p><strong>Zip Code:</strong> {listing.zip_code}</p>
-//                         <p><strong>State:</strong> {listing.state}</p>
-//                         <p><strong>Square Footage:</strong> {listing.square_footage} sqft</p>
-//                         <p><strong>Lot Size:</strong> {listing.lot_size}</p>
-//                         <button onClick={() => onFavorite(listing.id)}>Add to Favorites</button>
-//                         {/* Add more details as needed */}
-//                     </div>
-//                 ))}
-//             </div>  
-//         </div>
-//     );
-// }
-
-// export default ListingsComponent;
-
 import React, { useState, useEffect } from 'react';
 
 function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
   const [budget, setBudget] = useState('');
   const [averagePrice, setAveragePrice] = useState(0);
+  const [selectedListingId, setSelectedListingId] = useState(null);
+  
 
   useEffect(() => {
     if (listings.length > 0) {
@@ -63,6 +35,10 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
   const getGlowClass = (listingPrice) => {
     const total = parseFloat(budget) + listingPrice;
     return total < averagePrice ? 'belowAverage' : 'aboveAverage';
+  };
+
+  const handleListingClick = (listingId) => {
+    setSelectedListingId(listingId === selectedListingId ? null : listingId);
   };
 
   //set this to null in order to escape "focus"
@@ -145,4 +121,3 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
 }
 
 export default ListingsComponent;
-
