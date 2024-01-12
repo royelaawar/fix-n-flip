@@ -56,49 +56,175 @@
 
 
 .listingList {
-  /* width: fit-content; */
+  --padding: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100vw;
-  
-
-  grid-template-columns: 25% 25% 25% 25%;
+  gap: 15px;
+  grid-template-columns: calc( 25% - var(--padding )) calc( 25% - var(--padding )) calc( 25% - var(--padding )) calc( 25% - var(--padding ));
   display: grid;
-  transition: grid 1s, gap 1s, max-width 1s;
-  
-
+  transition: grid 1s, gap 1s, max-width 1s, padding 1s;
+  padding: var(--padding);
 }
 
 .listingList[click-active="T"] {
+  --padding: 0px;
   max-width: 800px;
-  gap: 0;
+  gap: 0px;
+  padding: 0;
   margin: auto;
   .listing {
-    /* animate these too */
-      margin: 0px;
-      padding: 0px;
-      box-shadow: none !important;
-      border: none;
-
+    margin: 0px;
+    box-shadow: none !important;
+    border: none;
   }
-
 }
 
 
-.listingList .listing {
+.listing {
   border: 1px solid black;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 10px;
   flex-basis: 22%;
-  margin: 10px;
+  /* margin: 10px; */
   overflow: hidden;
   white-space: nowrap;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  display: grid;
+  /* position: relative; */
+
+  grid-template-rows: 
+    30px 
+    200px
+    20px
+    0px;
+  grid-template-columns: 100% 0%;
+  transition: grid 1s, opacity 0.75s, padding 1s;
+  overflow: hidden;
+  /* max-width: 500px; */
+}
+
+.listing[is-active="true"]{
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 
+  50px 
+  400px
+  20px
+  100px;
+  background-color: rgb(237, 237, 237);
+  padding: 15px;
+  border-radius: 25px;
+  h2 {
+    text-align: left;
+  }
+}
+
+.listing[is-active="false"]{
+  opacity: 0;
+}
+
+.listing .selectedHeader{
+  #Esc {
+    /* height: 100%; */
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    text-align: center;
+    width: 35px;
+    height: 35px;
+    box-shadow: none;
+    border: 1px solid black;
+    border-radius: 100vh;
+  }  
+  
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  /* height: 150px; */
+  display: flex;
+  
+  align-items: center;
+  justify-content: flex-end;
+  /* padding: 0 15px; */
+}
+
+.listing .quickControls {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.listing .listingImgs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row: 2;
+  overflow: hidden;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.listing .listingDetails {
+  h3 {
+    /* margin: 4px; */
+    margin-bottom: 0px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 10px 10px 0 0;
+
+    background-color: rgb(246, 246, 246);
+    text-align: left;
+    width: min-content;
+  }
+
+  width: fit-content;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  grid-row: 4;
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+}
+
+.listing .listingDetails .listingParams {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgb(246, 246, 246);
+  padding: 5px;
+  overflow: hidden;
+  margin: auto;
+  border-radius: 0 0 10px 10px;
   gap: 5px;
+  column-gap: 25px;
+  min-width: 400px;
+  /* margin: 10px; */
+}
+
+.listing .listingDetails .listingParams div {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  strong {
+
+  }
+}
+
+.listing[exceed-budget='aboveAverage']{
+  box-shadow: inset 0 0 15px 2px rgba(255, 0, 0, 0.6);
+  border-color: rgba(255, 0, 0, 0.6);
+
+}
+
+.listing[exceed-budget='belowAverage']{
+  box-shadow: inset 0 0 15px 2px rgba(0, 255, 0, 0.6);
+  border-color: rgba(0, 255, 0, 0.6);
 }
 
 /* Style for images in the listing */
@@ -111,24 +237,17 @@
 }
 
 .listing {
-  font-size: 14px; /* Adjust the size as needed */
+  font-size: 14px; 
 }
 
 .listing h2 {
-  font-size: 18px; /* Adjust the size for heading if needed */
+  font-size: 18px; 
 }
 
 .listing p {
-  font-size: 14px; /* Adjust for paragraph text */
+  font-size: 14px; 
 }
 
-.belowAverage {
-  box-shadow: 0 0 20px 5px rgba(0, 255, 0, 0.6); /* Stronger green glow */
-}
-
-.aboveAverage {
-  box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.6); /* Stronger red glow */
-}
 
 nav {
   display: flex;

@@ -1,4 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+const SelectedHeader = ({ EscapeButton }) => {
+  return <div className='selectedHeader'>
+    { EscapeButton }
+  </div>; 
+};
+
+const ListingDetails = ({ city, price, zip_code, state, square_footage, lot_size }) => {
+  return <div className='listingDetails'>
+    <h3>Details</h3>
+    <div className='listingParams'>
+      <div>
+        <strong>City:</strong> 
+        <span>{city}</span>
+      </div>
+      <div>
+        <strong>Price:</strong>
+        <span>${price}</span>
+      </div>
+      <div>
+        <strong>Zip Code:</strong> 
+        <span>{zip_code}</span>
+      </div>
+      <div>
+        <strong>State:</strong> 
+        <span>{state}</span>
+      </div>
+      <div>
+        <strong>SQFT:</strong> 
+        <span>{square_footage}</span> 
+      </div>
+      <div>
+        <strong>Lot Size:</strong>
+        <span>{lot_size}</span>
+      </div>
+
+    </div>
+  </div>;
+};
+
+const Listing = ({ listing, i, setClickedIndex, clickedIndex, getGlowClass, onFavorite, EscapeButton }) => {
+  const isActive = clickedIndex === i;
+  const activeComponents = isActive ? <>
+     <SelectedHeader EscapeButton={ EscapeButton }/>
+     <ListingDetails {...listing }/>
+  </> : null;
+
+
+  return <div 
+    onClick={ ( ) => setClickedIndex( i )} 
+    key={listing.id} className={"listing"} 
+    is-active={( clickedIndex !== null ? isActive : "none" ).toString( )} 
+    exceed-budget={ getGlowClass(listing.price) }>
+    <h2 className='listingName'>{listing.street_address}</h2>
+    { activeComponents }
+
+    <div className='listingImgs'>
+      {/* <div className='imgFrame'> */}
+      { listing.images && listing.images.map( image => <img key={image.id} src={image.image_url} alt="Listing" /> )}
+      {/* </div> */}
+      
+    </div>
+    
+
+    
+    <div className='quickControls'>
+      <button onClick={(event) => { event.stopPropagation(); onFavorite(listing.id)}}>Add to Favorites</button>
+    </div>
+    
+  </div>;
+
+};
+
 
 function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
   const [budget, setBudget] = useState('');
@@ -51,32 +124,49 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
   let [ x, y ] = [ null, null ];
 
     if( clickedIndex !== null ) {
-        console.log( clickedIndex );
-        [ x, y ] = [ clickedIndex % 4, Math.floor( clickedIndex / 4) ];
-        style["click-active"] = "T";
-        
-        style.gridTemplateColumns = 
-        `${ x === 0 ? "100%" : "0" } ${ x === 1 ? "100%" : "0" } ${ x === 2 ? "100%" : "0" } ${ x === 3 ? "100%" : "0" }`;
-        style.gridTemplateRows = 
-        `${ y === 0 ? "100%" : "0" } ${ y === 1 ? "100%" : "0" } ${ y === 2 ? "100%" : "0" } ${ y === 3 ? "100%" : "0" }`;
 
+      [ x, y ] = [ clickedIndex % 4, Math.floor( clickedIndex / 4) ];
+
+      style["click-active"] = "T";
+      
+      style.gridTemplateColumns = 
+        `${ x === 0 ? "100%" : "0" } ${ x === 1 ? "100%" : "0" } ${ x === 2 ? "100%" : "0" } ${ x === 3 ? "100%" : "0" }`;
+      style.gridTemplateRows = 
+        `${ y === 0 ? "100%" : "0" } ${ y === 1 ? "100%" : "0" } ${ y === 2 ? "100%" : "0" } ${ y === 3 ? "100%" : "0" }`;
     };
 
     for (let i = 0; i < rowLen; i++) {
-        console.log( i, y );
-        if( i === y ) rowStr += "100% ";
+
+      if( i === y ) rowStr += "100% ";
         else if( clickedIndex !== null ) rowStr += "0 ";
-        else rowStr += "600px ";
+        else rowStr += "300px";
     };
-    console.log( rowStr );
     style.gridTemplateRows = rowStr;
     
-    const EscapeButton = () => (
-        <button onClick={() => setClickedIndex(null)} style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 2}}>
-          Close Image
-        </button>
-      );
+    const EscapeButton = <button onClick={ e => { e.stopPropagation( ); setClickedIndex(null)}} id="Esc">
+      X
+    </button>;
+
+    const listingProps = { getGlowClass, setClickedIndex, clickedIndex, onFavorite, EscapeButton };
     
+    
+    const clickedIndexRef = useRef(clickedIndex);
+
+    useEffect(() => {
+      clickedIndexRef.current = clickedIndex;
+    }, [clickedIndex]);
+
+    const handleEscape = ( e ) => {
+      console.log(clickedIndex);
+      if( e.key === 'Escape') setClickedIndex( null );
+      if( e.key === 'ArrowRight' ) setClickedIndex( clickedIndexRef.current + 1 );
+      if( e.key === 'ArrowLeft' ) setClickedIndex( clickedIndexRef.current - 1 );
+    };
+    
+    useEffect(( ) => { 
+      window.addEventListener( 'keydown', handleEscape );
+      return ( ) => window.removeEventListener( 'keydown', handleEscape );
+    }, [ ]);
 
   return (
     <div>
@@ -93,26 +183,8 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
         <button type="submit">Submit Budget</button>
       </form>
 
-        <div className="listingList" style={ style }> { clickedIndex !== null && <EscapeButton /> }
-            {
-                listings.map(( listing, i ) => (
-                    <div onClick={ ( ) => setClickedIndex( i )} key={listing.id} className={`listing ${getGlowClass(listing.price)}`} style={{ backgroundColor: clickedIndex === i ? "gold" : null }}>
-
-                        { listing.images && listing.images.map( image => <img key={image.id} src={image.image_url} alt="Listing" /> )}
-                        
-                        <h2>{listing.street_address}</h2>
-
-                        <span><strong>City:</strong> {listing.city}</span>
-                        <span><strong>Price:</strong> ${listing.price}</span>
-                        <span><strong>Zip Code:</strong> {listing.zip_code}</span>
-                        <span><strong>State:</strong> {listing.state}</span>
-                        <span><strong>Square Footage:</strong> {listing.square_footage} sqft</span>
-                        <span><strong>Lot Size:</strong> {listing.lot_size}</span>
-                        <button onClick={(event) => { event.stopPropagation(); onFavorite(listing.id)}}>Add to Favorites</button>
-                        {/* Add more details as needed */}
-                    </div>
-                ))
-            }
+        <div className="listingList" style={ style } click-active={ clickedIndex !== null ? "T" : "F" }> 
+            { listings.map(( listing, i ) =>  <Listing i={i} listing={listing} { ...listingProps }/> )}
         </div> 
 
       
