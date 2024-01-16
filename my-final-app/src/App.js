@@ -9,7 +9,7 @@ import SignupLogin from './components/SignupLogin';
 import NavBar from './components/Navbar';
 import BudgetCalculator from './components/Calulator';
 import FavoritesComponent from './components/Favorites'
-import Investment from './components/InvestmentTab';
+import UserProfile from './components/Profile';
 
 const URL = "/api"
 const POST_HEADERS = {
@@ -144,6 +144,13 @@ async function handleFavorite(listingId) {
   }
 }
 
+const handleSaveBudget = (newTotal) => {
+  // Assuming 'user' state holds the user profile data
+  const updatedUser = { ...user, budget: newTotal };
+  setUser(updatedUser);
+  // Optionally, save this updated profile to the backend here
+};
+
   return (
     <div className="App"> 
       <NavBar logout={logout} />    
@@ -153,8 +160,9 @@ async function handleFavorite(listingId) {
           <Route path="/" element={ <HomePage/> }/>
           <Route path="/login" element={<UserPanel currentUser={user} attemptLogin={handleLogin} attemptSignup={handleSignup} logout={logout} />}/>
           <Route path="/listings" element={<ListingsComponent listings={listings} onFavorite={handleFavorite} onUpdateBudget={updateBudget} user={user} />} />
-          <Route path="/calculator" element={<BudgetCalculator />} />
+          <Route path="/calculator" element={<BudgetCalculator onSaveBudget={handleSaveBudget} />} />
           <Route path="/favorite" element={<FavoritesComponent favorites={favorites} />} />
+          <Route path="/profile" element={<UserProfile user={user} />} />
           {/* <Route path="/investment" element={<Investment user={user} onUpdateBudget={updateBudget}listings={listings} />} /> */}
 
       

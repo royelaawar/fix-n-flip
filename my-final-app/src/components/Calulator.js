@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-function CalculatorComponent() {
+function CalculatorComponent(props) {
   const initialBudget = {
-    plansSurvey: 0,
-    permits: 0,
-    dumpsters: 0,
+    PlansSurvey: 0,
+    Permits: 0,
+    Dumpsters: 0,
     TempWater: 0,
     TempElectric: 0,
     Demo: 0,
@@ -57,468 +57,70 @@ function CalculatorComponent() {
   };
 
   const [budget, setBudget] = useState(initialBudget);
+  const [tempValues, setTempValues] = useState(initialBudget);
   const [total, setTotal] = useState(0);
+  const [streetAddress, setStreetAddress] = useState("");
 
   const handleChange = (e) => {
     setBudget({ ...budget, [e.target.name]: parseFloat(e.target.value) || 0 });
+    setTempValues({ ...tempValues, [e.target.name]: e.target.value });
   };
 
-  const calculateTotal = () => {
-    return Object.values(budget).reduce((acc, curr) => acc + curr, 0);
+  const handleFocus = (e) => {
+    if (e.target.value === '0') {
+      setTempValues({ ...tempValues, [e.target.name]: '' });
+    }
+  };
+
+  const handleBlur = (e) => {
+    if (e.target.value === '') {
+      setTempValues({ ...tempValues, [e.target.name]: '0' });
+    }
   };
 
   useEffect(() => {
-    setTotal(calculateTotal());
-  }, [budget]); // Recalculate total whenever budget changes
+    setTotal(Object.values(budget).reduce((acc, curr) => acc + curr, 0));
+  }, [budget]);
+
+  const handleSave = () => {
+    props.onSaveBudget({ total, streetAddress }); 
+  };
+
+  const handleAddressChange = (e) => {
+    setStreetAddress(e.target.value);
+  };
 
   return (
-    <div>
+    <div className="calculator-container">
       <h1>Budget Calculator</h1>
-      <form>
-        <label>
-          Plans/Survey:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Permits:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Dumpster:
-          <input 
-            type="number" 
-            name="dumpster" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Temp Water:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Temp Electric:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Demo:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Utility TieIn:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Stormwater:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Landscaping:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Foundation:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Footing:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Framing Material:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Framing Labor:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Roofing:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Siding:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Gutters:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Windows:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Exterior Doors:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Plumbing Rough:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          HVAC Rough:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Electrical Rough:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Sheetrock:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Insulation:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Staircase:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Wood Flooring:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Tile Flooring:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Interio Doors:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Hardware:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Interior Trim:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Paint:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Closets:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Cabinets:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Countertops:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Appliances:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Door Hardware:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Tile Backsplash:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Shower Doors:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Tubs:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Toilets:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Vanities:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Garage Doors:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-        Decking:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Fireplace:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Driveway:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Patio:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Builder Fee:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Pool:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Fences:
-          <input 
-            type="number" 
-            name="plansSurvey" 
-            value={budget.plansSurvey} 
-            onChange={handleChange} 
-          />
-        </label>
-        <label>
-          Contingency:
-          <input 
-            type="number" 
-            name="permits" 
-            value={budget.permits} 
-            onChange={handleChange} 
-          />
-        </label>
-        
+      <form style={{ display: 'grid', gridTemplateColumns: 'auto auto auto auto', gap: '10px', alignItems: 'center' }}>
+        {/* Mapping logic for input fields */}
+        {Object.keys(initialBudget).map((key) => (
+          <React.Fragment key={key}>
+            <label>{key.replace(/([A-Z])/g, ' $1').trim()}:</label>
+            <input 
+              type="number" 
+              name={key}
+              value={tempValues[key]}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              style={{ maxWidth: '150px' }}
+            />
+          </React.Fragment>
+        ))}
       </form>
-      <div>Total: ${total.toFixed(2)}</div>
+      <div style={{ marginTop: '20px', fontWeight: 'bold', textAlign: 'center' }}>
+        Total: ${total.toFixed(2)}
+        <input
+          type="text"
+          placeholder="Enter Street Address"
+          value={streetAddress}
+          onChange={handleAddressChange}
+          style={{ marginLeft: '10px', maxWidth: '200px' }}
+        />
+        <button onClick={handleSave} style={{ marginLeft: '10px' }}>Save to Profile</button>
+      </div>
     </div>
   );
 }

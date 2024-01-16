@@ -41,10 +41,33 @@ const ListingDetails = ({ city, price, zip_code, state, square_footage, lot_size
 
 const Listing = ({ listing, i, setClickedIndex, clickedIndex, getGlowClass, onFavorite, EscapeButton }) => {
   const isActive = clickedIndex === i;
-  const activeComponents = isActive ? <>
-     <SelectedHeader EscapeButton={ EscapeButton }/>
-     <ListingDetails {...listing }/>
-  </> : null;
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [listing, clickedIndex]);
+
+  const nextImage = () => {
+    setCurrentImageIndex(prevIndex => (prevIndex + 1) % listing.images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex(prevIndex => prevIndex === 0 ? listing.images.length - 1 : prevIndex - 1);
+  };
+
+  const activeComponents = isActive ? (
+    <>
+      <SelectedHeader EscapeButton={ EscapeButton } />
+      <ListingDetails {...listing} />
+      {listing.images && listing.images.length > 1 && (
+        <>
+          <button className='carouselButton left' onClick={prevImage}>&lt;</button>
+          <button className='carouselButton right' onClick={nextImage}>&gt;</button>
+
+        </>
+      )}
+    </>
+  ) : null;
 
 
   return <div 
@@ -57,7 +80,8 @@ const Listing = ({ listing, i, setClickedIndex, clickedIndex, getGlowClass, onFa
 
     <div className='listingImgs'>
       {/* <div className='imgFrame'> */}
-      { listing.images && listing.images.map( image => <img key={image.id} src={image.image_url} alt="Listing" /> )}
+      {listing.images && listing.images.length > 0 && (<img src={listing.images[currentImageIndex].image_url} alt="Listing" />)}
+      {/* { listing.images && listing.images.map( image => <img key={image.id} src={image.image_url} alt="Listing" /> )} */}
       {/* </div> */}
       
     </div>
@@ -65,8 +89,12 @@ const Listing = ({ listing, i, setClickedIndex, clickedIndex, getGlowClass, onFa
 
     
     <div className='quickControls'>
-      <button onClick={(event) => { event.stopPropagation(); onFavorite(listing.id)}}>Add to Favorites</button>
+      <svg class="heart" viewBox="0 0 32 29.6" width="25" height="40" onClick={(event) => { event.stopPropagation(); onFavorite(listing.id)}}>
+        <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+        c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" fill="rgba(255, 0, 0, 0.8)" transform="translate(.2, 3)"/>
+      </svg> 
     </div>
+
     
   </div>;
 
@@ -101,10 +129,10 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
 
   const handleSubmitBudget = (event) => {
     event.preventDefault();
-    onUpdateBudget(user.id, budget);  // Update the budget in the parent component or backend
+    onUpdateBudget(user.id, budget);  
   };
 
-  // Updated logic to determine the glow color
+  
   const getGlowClass = (listingPrice) => {
     const total = parseFloat(budget) + listingPrice;
     return total < averagePrice ? 'belowAverage' : 'aboveAverage';
@@ -155,7 +183,7 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
 
     useEffect(() => {
       clickedIndexRef.current = clickedIndex;
-    }, [clickedIndex]);
+    }, [clickedIndex]); 
 
     const handleEscape = ( e ) => {
       console.log(clickedIndex);
