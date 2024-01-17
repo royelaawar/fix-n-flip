@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logo from '../icon-fixnflip.png';
 
 function CalculatorComponent(props) {
   const initialBudget = {
@@ -92,6 +93,7 @@ function CalculatorComponent(props) {
 
   return (
     <div className="calculator-container">
+      <img src={logo} alt="FixnFlip Logo" className="top-left-logo" />
       <h1>Budget Calculator</h1>
       <form style={{ display: 'grid', gridTemplateColumns: 'auto auto auto auto', gap: '10px', alignItems: 'center' }}>
         {/* Mapping logic for input fields */}

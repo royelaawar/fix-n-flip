@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import logo from '../icon-fixnflip.png';
 
 const SelectedHeader = ({ EscapeButton }) => {
   return <div className='selectedHeader'>
@@ -202,6 +203,7 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
 
   return (
     <div>
+      <img src={logo} alt="FixnFlip Logo" className="top-left-logo" />
       <h1>Listings</h1>
       <form onSubmit={handleSubmit}>
       

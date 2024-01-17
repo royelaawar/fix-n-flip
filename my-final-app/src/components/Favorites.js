@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import logo from '../icon-fixnflip.png';
 
 const URL = "/api"
 
@@ -41,6 +42,7 @@ function FavoritesComponent() {
 console.log(favorites)
 return (
   <div>
+    <img src={logo} alt="FixnFlip Logo" className="top-left-logo" />
     <h1>My Favorites</h1>
     <div className="favorites-list">
       {favorites.map(favorite => (
