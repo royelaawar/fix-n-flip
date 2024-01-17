@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import logo from '../../icon-fixnflip.png';
 
 function Signup({attemptSignup}) {
 
@@ -20,35 +21,44 @@ function Signup({attemptSignup}) {
   // RENDER //
 
   return (
-    <form className='user-form' onSubmit={handleSubmit}>
+    <div>
+    <div className="signup-container">
 
-      <h2>Signup</h2>
+      <img src={logo} alt="FixnFlip Logo" className="background-logo"/> 
+        <form className='user-form' onSubmit={handleSubmit}>
+          
+          <h2>Signup</h2>
 
-      <input type="text"
-      onChange={handleChangeUsername}
-      value={username}
-      placeholder='username'
-      />
+          <input type="text"
+          onChange={handleChangeUsername}
+          value={username}
+          placeholder='username'
+          />
 
-      <input type="password"
-      onChange={handleChangePassword}
-      value={password}
-      placeholder='password'
-      />
+          <input type="password"
+          onChange={handleChangePassword}
+          value={password}
+          placeholder='password'
+          />
 
-      {/* #I need to change the below to "budget" */}
+          {/* #I need to change the below to "budget" */}
 
-      {/* <input type="text" 
-      onChange={handleChangePassword}
-      value={password}
-      placeholder='budget amount'
-      /> */}
+          {/* <input type="text" 
+          onChange={handleChangePassword}
+          value={password}
+          placeholder='budget amount'
+          /> */}
 
-      <input type="submit"
-      value='Signup'
-      />
+          <input type="submit"
+          value='Signup'
+          />
 
-    </form>
+        </form>
+      
+    </div>
+
+  </div>
+        
   )
 
 }

@@ -75,6 +75,7 @@
   gap: 0px;
   padding: 0;
   margin: auto;
+  
   .listing {
     margin: 0px;
     box-shadow: none !important;
@@ -227,6 +228,7 @@
   border: 1px solid black;
   padding: 10;
   opacity: .5;
+  
 }
 
 .listing[exceed-budget='belowAverage']{
@@ -292,8 +294,53 @@ nav a.active {
   margin: auto;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  background-size: contain; /* Ensure the image fits well */
+  background-repeat: no-repeat; /* Prevent image from repeating */
+  background-position: center; /* Center the image */
+  padding: 25px; /* Adjust padding as needed */
+  background-color: rgba(255, 255, 255, 0.4); /* Optional: Semi-transparent background for better readability */
+  
 
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1; /* Each container takes up an equal amount of space */
+  position: relative;
+  margin-top: 100px;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1; /* Each container takes up an equal amount of space */
+  position: relative;
+  margin-top: 50px;
+}
+
+.background-logo {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the logo */
+  z-index: -1; /* Place the logo behind the form */
+  max-width: 600px; /* Adjust the size as necessary */
+  height: auto;
+}
+
+.slogan {
+  text-align: center;
+  margin-top: 50px; /* Adjust as needed */
+  font-size: 1.7em; /* Adjust font size as needed */
+  color: #333; /* Adjust the color as needed */
+  font-family: 'Roboto Slab', serif; 
+  font-weight: bold;
+  font-style: italic;
+  /* Add any additional styling you need here */
 }
 
 .user-form h2 {
@@ -318,6 +365,7 @@ nav a.active {
   color: white;
   cursor: pointer;
 }
+
 
 .user-form input[type="submit"]:hover {
   background-color: #0056b3;
@@ -386,11 +434,11 @@ nav a.active {
 }
 
 .carouselButton.left {
-  left: 500px; 
+  left: 250px; 
 }
 
 .carouselButton.right {
-  right: 500px; 
+  right: 250px; 
 }
 
 .calculator-container {

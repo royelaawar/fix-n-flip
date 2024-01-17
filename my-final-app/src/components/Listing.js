@@ -135,6 +135,9 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
   
   const getGlowClass = (listingPrice) => {
     const total = parseFloat(budget) + listingPrice;
+    if (!total) {
+      return 'belowAverage'
+    }
     return total < averagePrice ? 'belowAverage' : 'aboveAverage';
   };
 

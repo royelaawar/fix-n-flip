@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import HomePage from './components/home';
 import ListingsComponent from './components/Listing';
 import { useEffect, useState } from 'react';
@@ -23,7 +23,8 @@ function App() {
   const [user, setUser] = useState(null)
   const [favorites, setFavorites] = useState([])
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => { 
     fetch(URL + "/check_session")
@@ -151,9 +152,14 @@ const handleSaveBudget = (newTotal) => {
   // Optionally, save this updated profile to the backend here
 };
 
+const shouldDisplayNavBar = () => {
+  // Condition to check if the user is logged in and not on login/signup page
+  return user && !['/login', '/signup'].includes(location.pathname);
+};
+
   return (
     <div className="App"> 
-      <NavBar logout={logout} />    
+      {shouldDisplayNavBar() && <NavBar logout={logout} /> }   
       <div className='content'>
         <Routes>
 

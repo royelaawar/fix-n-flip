@@ -20,6 +20,8 @@ function Login({attemptLogin}) {
   // RENDER //
 
   return (
+  <div>
+  <div className="login-container">
     <form className='user-form' onSubmit={handleSubmit}>
 
       <h2>Login</h2>
@@ -41,6 +43,11 @@ function Login({attemptLogin}) {
       />
 
     </form>
+  </div>
+  <div>
+      <p className="slogan">"Profitable Properties, Powerful Possibilities – Flip with Confidence."</p>
+    </div>
+  </div>
   )
 
 }
