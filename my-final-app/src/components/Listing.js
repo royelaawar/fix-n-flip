@@ -106,6 +106,7 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
   const [budget, setBudget] = useState('');
   const [averagePrice, setAveragePrice] = useState(0);
   const [selectedListingId, setSelectedListingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   
 
   useEffect(() => {
@@ -201,12 +202,25 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
       return ( ) => window.removeEventListener( 'keydown', handleEscape );
     }, [ ]);
 
+    const handleSearchChange = (event) => {
+      setSearchTerm(event.target.value.toLowerCase());
+    };
+
   return (
     <div>
       <img src={logo} alt="FixnFlip Logo" className="top-left-logo" />
-      <h1>Listings</h1>
+      <div className="search-container">
+      <h1 className="search-heading">Search By Address</h1>
+      <input
+        type="text"
+        placeholder="Search by address"
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+      </div>
       <form onSubmit={handleSubmit}>
       
+      <div className="budget-container">
         <h2>Set Your Investment Budget</h2>
         <input
           type="number"
@@ -215,10 +229,11 @@ function ListingsComponent({ listings, onFavorite, onUpdateBudget, user }) {
           placeholder="Enter your budget"
         />
         <button type="submit">Submit Budget</button>
+        </div>
       </form>
 
         <div className="listingList" style={ style } click-active={ clickedIndex !== null ? "T" : "F" }> 
-            { listings.map(( listing, i ) =>  <Listing i={i} listing={listing} { ...listingProps }/> )}
+        {listings.filter(listing => listing.street_address.toLowerCase().includes(searchTerm)).map((listing, i) => <Listing i={i} listing={listing} {...listingProps} />)}
         </div> 
 
       

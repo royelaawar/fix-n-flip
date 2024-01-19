@@ -94,7 +94,7 @@ function CalculatorComponent(props) {
   return (
     <div className="calculator-container">
       <img src={logo} alt="FixnFlip Logo" className="top-left-logo" />
-      <h1>Budget Calculator</h1>
+      <h1 className="budget-calc">Budget Calculator</h1>
       <form style={{ display: 'grid', gridTemplateColumns: 'auto auto auto auto', gap: '10px', alignItems: 'center' }}>
         {/* Mapping logic for input fields */}
         {Object.keys(initialBudget).map((key) => (
