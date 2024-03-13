@@ -4,7 +4,7 @@ function HomePage() {
   return (
     <div>
       <h1>Welcome to My Homepage</h1>
-      <p>This is a basic React homepage.</p>
+      <p>This is a  a a basic React homepage.</p>
     </div>
   );
 }

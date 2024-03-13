@@ -3,7 +3,7 @@
 # logo --> synopsis ---> dependencies --> picture of homepage
 tell me what fix n flip is
 
-! [my alt text] (racoon-icon.jpg) after you import it 
+! [my alt text] (icon-fixnflip.jpg) after you import it 
 
 
 
